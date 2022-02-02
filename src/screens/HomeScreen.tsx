@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, SafeAreaView, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Label} from '../components/Label';
 import {colors} from '../theme/colors';
@@ -23,28 +23,30 @@ export const HomeScreen = ({navigation}: Props) => {
   }, []);
 
   return (
-    <View style={{alignItems: 'center', paddingHorizontal: 30}}>
-      <FlatList
-        style={{width: '100%'}}
-        data={indicadores}
-        keyExtractor={indicador => indicador.key}
-        showsVerticalScrollIndicator={false}
-        refreshing={isLoading}
-        onRefresh={() => dispatch(getIndicadores())}
-        ListHeaderComponent={
-          <Label text="Indicadores" isBold style={styles.title} />
-        }
-        ItemSeparatorComponent={() => (
-          <View style={{...globalStyles.divider}} />
-        )}
-        renderItem={({item}) => (
-          <IndicadorCard
-            item={item}
-            onPress={() => navigation.navigate('IndicadorDetail', item)}
-          />
-        )}
-      />
-    </View>
+    <SafeAreaView>
+      <View style={{alignItems: 'center', paddingHorizontal: 30}}>
+        <FlatList
+          style={{width: '100%'}}
+          data={indicadores}
+          keyExtractor={indicador => indicador.key}
+          showsVerticalScrollIndicator={false}
+          refreshing={isLoading}
+          onRefresh={() => dispatch(getIndicadores())}
+          ListHeaderComponent={
+            <Label text="Indicadores" isBold style={styles.title} />
+          }
+          ItemSeparatorComponent={() => (
+            <View style={{...globalStyles.divider}} />
+          )}
+          renderItem={({item}) => (
+            <IndicadorCard
+              item={item}
+              onPress={() => navigation.navigate('IndicadorDetail', item)}
+            />
+          )}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

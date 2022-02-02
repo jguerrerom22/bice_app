@@ -47,15 +47,6 @@ export const useIndicadorDetail = (params: IndicadorResponse) => {
             style={{marginLeft: 10}}
           />
         </TouchableOpacity>
-        {showCalendar && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={new Date(newDate * 1000)}
-            mode="date"
-            display="default"
-            onChange={setDate}
-          />
-        )}
       </View>
     );
   };
@@ -113,12 +104,14 @@ export const useIndicadorDetail = (params: IndicadorResponse) => {
   };
 
   return {
+    showCalendar,
     getIndicadorDetail,
     detailItem,
     newValue,
     newDate,
     formatDate,
     itemDates,
+    setDate,
   };
 };
 
