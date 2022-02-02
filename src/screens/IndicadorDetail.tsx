@@ -39,69 +39,65 @@ export const IndicadorDetail = ({route: {params}, navigation}: Props) => {
   }, []);
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => navigation.goBack()}>
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            size={20}
-            color={colors.text}
-            style={{marginTop: 20}}
-          />
-        </TouchableOpacity>
+    <View style={styles.container}>
+      <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.goBack()}>
+        <FontAwesomeIcon
+          icon={faArrowLeft}
+          size={20}
+          color={colors.text}
+          style={{marginTop: 20}}
+        />
+      </TouchableOpacity>
 
-        <Label text={params.name} style={styles.title} numberOfLines={3} />
+      <Label text={params.name} style={styles.title} numberOfLines={3} />
 
-        <View style={styles.detailContainer}>
-          {detailItem('ID', params.key)}
-          {detailItem('Valor', newValue.toString())}
-          {detailItem('Unidad', params.unit)}
-          {detailItem('Fecha', formatDate(newDate), true)}
-        </View>
-
-        {showCalendar && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={new Date(newDate * 1000)}
-            mode="date"
-            display="default"
-            onChange={setDate}
-          />
-        )}
-
-        <TouchableOpacity onPress={() => setShowHistory(!showHistory)}>
-          <View style={{flexDirection: 'row'}}>
-            <FontAwesomeIcon
-              icon={showHistory ? faChevronUp : faChevronDown}
-              style={styles.linkIcon}
-            />
-            <Label text="Ver histórico" style={styles.link} />
-          </View>
-        </TouchableOpacity>
-
-        {showHistory && (
-          <FlatList
-            style={{width: '100%', marginTop: 20}}
-            data={itemDates}
-            keyExtractor={item => item.date}
-            showsVerticalScrollIndicator={false}
-            numColumns={3}
-            renderItem={({item}) => (
-              <View style={{flex: 1, marginVertical: 10}}>
-                <Label
-                  text={item.value.toString()}
-                  style={{fontSize: 22}}
-                  isBold
-                />
-                <Label text={item.date} style={{fontSize: 18}} />
-              </View>
-            )}
-          />
-        )}
+      <View style={styles.detailContainer}>
+        {detailItem('ID', params.key)}
+        {detailItem('Valor', newValue.toString())}
+        {detailItem('Unidad', params.unit)}
+        {detailItem('Fecha', formatDate(newDate), true)}
       </View>
-    </SafeAreaView>
+
+      {showCalendar && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={new Date(newDate * 1000)}
+          mode="date"
+          display="default"
+          onChange={setDate}
+        />
+      )}
+
+      <TouchableOpacity onPress={() => setShowHistory(!showHistory)}>
+        <View style={{flexDirection: 'row'}}>
+          <FontAwesomeIcon
+            icon={showHistory ? faChevronUp : faChevronDown}
+            style={styles.linkIcon}
+          />
+          <Label text="Ver histórico" style={styles.link} />
+        </View>
+      </TouchableOpacity>
+
+      {showHistory && (
+        <FlatList
+          style={{width: '100%', marginTop: 20}}
+          data={itemDates}
+          keyExtractor={item => item.date}
+          showsVerticalScrollIndicator={false}
+          numColumns={3}
+          renderItem={({item}) => (
+            <View style={{flex: 1, marginVertical: 10}}>
+              <Label
+                text={item.value.toString()}
+                style={{fontSize: 22}}
+                isBold
+              />
+              <Label text={item.date} style={{fontSize: 18}} />
+            </View>
+          )}
+        />
+      )}
+    </View>
   );
 };
 
